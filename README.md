@@ -1,6 +1,8 @@
 # House Price Predictor
 
-![Typing SVG](https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=26&duration=2400&pause=700&color=0EA5E9&vCenter=true&center=true&width=900&lines=House+Price+Predictor;Django+%2B+DRF+Backend+%7C+React+%2B+Vite+Frontend;ML-powered+price+estimates+with+real-time+UI)
+<p align="center">
+  <img src="assets/hero.svg" alt="House Price Predictor" />
+</p>
 
 A full-stack house price prediction app. The backend serves a trained ML model via a Django REST API, and the frontend delivers a fast, responsive UI for entering property details and viewing predictions.
 
