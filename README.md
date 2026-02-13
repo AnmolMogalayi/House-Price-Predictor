@@ -13,6 +13,10 @@
 - 💎 React + Vite frontend with Tailwind UI components
 - ⚡ Model artifacts loaded once and reused per request
 
+## 🌐 Live Demo
+
+https://house-price-predictor-live.vercel.app
+
 ## 🛠️ Tech Stack
 
 - 🔧 **Backend:** Django, Django REST Framework, scikit-learn, pandas
