@@ -8,10 +8,31 @@ import api from './services/api';
 function App() {
   const [predictionResult, setPredictionResult] = useState(null);
   const [serverStatus, setServerStatus] = useState(null);
+  const [minTimeElapsed, setMinTimeElapsed] = useState(false);
+  const [showLoader, setShowLoader] = useState(true);
 
   useEffect(() => {
     checkServerHealth();
+    
+    // Ensure loader stays visible for minimum 10 seconds
+    const minTimer = setTimeout(() => {
+      setMinTimeElapsed(true);
+    }, 10000);
+
+    return () => clearTimeout(minTimer);
   }, []);
+
+  useEffect(() => {
+    // Hide loader only when both conditions are met
+    if (serverStatus !== null && minTimeElapsed) {
+      // Add smooth fade-out delay
+      const fadeOutTimer = setTimeout(() => {
+        setShowLoader(false);
+      }, 400);
+      
+      return () => clearTimeout(fadeOutTimer);
+    }
+  }, [serverStatus, minTimeElapsed]);
 
   const checkServerHealth = async () => {
     try {
@@ -42,8 +63,10 @@ function App() {
       </div>
 
       {/* Global Cold Start Loader */}
-      {serverStatus === null && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/80 backdrop-blur-md fade-in">
+      {showLoader && (
+        <div className={`fixed inset-0 z-50 flex items-center justify-center bg-slate-900/80 backdrop-blur-md transition-opacity duration-500 ${
+          serverStatus !== null && minTimeElapsed ? 'opacity-0' : 'opacity-100 fade-in'
+        }`}>
           <div className="glass-card rounded-2xl p-8 max-w-md mx-4 shadow-2xl shadow-black/50">
             <div className="flex flex-col items-center text-center">
               <div className="mb-6">
@@ -68,7 +91,7 @@ function App() {
                 Waking up the prediction engine
               </h2>
               <p className="text-sm text-slate-300">
-                Cold start in progress. This may take up to 30 seconds.
+                Cold start in progress. This may take up to 10 seconds.
               </p>
             </div>
           </div>
